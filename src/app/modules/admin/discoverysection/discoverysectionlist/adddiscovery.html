@@ -1,0 +1,14 @@
+<mat-icon matSuffix style="float: right; cursor: pointer;" (click)='close()'>clear</mat-icon>
+<h4 mat-dialog-title class="dialog-title">Add Discovery Section</h4>
+<div mat-dialog-content>
+    <!-- <p class="dialog-text">Enter your email to reset your password.</p> -->
+    <mat-form-field class="login-full-width">
+        <mat-label>Discovery Section</mat-label>
+        <input matInput type="text">
+        <!-- <mat-icon matSuffix>email</mat-icon> -->
+    </mat-form-field>
+    <p style="color : red" *ngIf='emailError'>{{emailError}}</p>
+</div>
+<div mat-dialog-actions>
+    <button class="btn btn-sm btn-primary btn-block text-uppercase"  type="submit">Send Now</button>
+</div>

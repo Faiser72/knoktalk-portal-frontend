@@ -1,0 +1,129 @@
+<!-- 
+	File Name :-	giftandcoin.html						Created Date :-01-09-2020     Created By :- Faiser I (Emp. Id : VTPL/BLR/006)
+	
+	Description :- this is the popup window which appears on clicking the gifr/coin action button of listusers.component.html					
+	
+============================================================================================================================
+  Sl.No			    Description			                                       Modified By		                	      Modified Date	
+============================================================================================================================
+	
+	
+ -->
+
+
+<mat-icon matSuffix style="float: right; cursor: pointer;" (click)='close()'>clear</mat-icon>
+<h5 mat-dialog-title class="text-center title-header">Gift / Coin</h5>
+<div mat-dialog-content>
+  <p class="dialog-text"><span class="dialog-title">Id:</span> {{userId}}</p>
+  <p class="dialog-text"><span class="dialog-title">Name:</span> {{userName}}</p>
+  <mat-divider></mat-divider>
+  <!-- <div class="mat-elevation-z8" *ngIf="interviewRounds.length > 0; else show_message">
+      <table class="table table-bordered">
+        <thead>
+          <tr class="dialog-title text-center">
+            <th>Rounds</th>
+            <th>Date</th>
+            <th>Interview Mode</th>
+            <th>Feedback</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let x of interviewRounds">
+            <td>{{x.rounds}}</td>
+            <td>{{x.date}}</td>
+            <td>{{x.interviewMode}}</td>
+            <td>{{x.feedback}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div> -->
+  <div>
+    <h4 class="text-success mt-3">Rewards:</h4>
+    <mat-radio-group aria-label="Select an option" color='primary' class="mt-3" (change)='giftOrCoin($event)'>
+      <mat-radio-button value="gift">Gift</mat-radio-button>
+      <mat-radio-button value="coin">Coin</mat-radio-button>
+    </mat-radio-group>
+
+    <!-- for gift starts-->
+    <div *ngIf="giftOrCoinValue=='gift'">
+      <h5 class="text-success mt-3">No of Gifts user has:{{noOfGifts}}</h5>
+      <div class="card gcformCard w-75 mx-auto">
+        <form action="" class="form-group customhover" [formGroup]="giftForm" (ngSubmit)="giftFormSubmit()">
+          <h4 class="mt-5">Transaction</h4>
+          <mat-form-field class="field-full-width">
+            <mat-label>Select Transaction </mat-label>
+            <mat-select name="gift">
+              <mat-option *ngFor="let gift of gift" [value]="gift.value">
+                {{gift.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="field-full-width">
+            <mat-label>Reward Update</mat-label>
+            <input matInput placeholder="Ex. 20" value="" formControlName="rewardUpdate" />
+          </mat-form-field>
+
+          <h5 class="text-success mt-3">Balance Gifts:{{noOfGifts}}</h5>
+
+          <div class="row d-flex justify-content-around mt-4 ml-5 mr-5">
+
+            <div class="col-lg-12 col-md-12 col-sm-12 d-flex justify-content-around">
+              <button type="submit" mat-raised-button color="accent" [disabled]='giftForm.invalid'>
+                <mat-icon class="mr-2">save</mat-icon>Submit
+              </button>
+              <button type="reset" mat-raised-button color="primary">
+                <mat-icon class="mr-2">360</mat-icon>Reset
+              </button>
+            </div>
+
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- for gift ends-->
+
+
+    <!-- for coin starts -->
+    <div *ngIf="giftOrCoinValue=='coin'">
+      <h5 class="text-success mt-3">No of Coins user has:{{noOfCoins}}</h5>
+      <div class="card gcformCard w-75 mx-auto">
+        <form action="" class="form-group customhover" [formGroup]="coinForm" (ngSubmit)="coinFormSubmit()">
+          <h4 class="mt-5">Transaction</h4>
+          <mat-form-field class="field-full-width">
+            <mat-label>Select Transaction </mat-label>
+            <mat-select name="coin">
+              <mat-option *ngFor="let coin of coin" [value]="coin.value">
+                {{coin.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="field-full-width">
+            <mat-label>Reward Update</mat-label>
+            <input matInput placeholder="Ex. 20" value="" formControlName="rewardUpdate" />
+          </mat-form-field>
+
+          <h5 class="text-success mt-3">Balance Coins:{{noOfCoins}}</h5>
+
+          <div class="row d-flex justify-content-around mt-4 ml-5 mr-5">
+            <div class="col-lg-12 col-md-12 col-sm-12 d-flex justify-content-around">
+              <button type="submit" mat-raised-button color="accent" [disabled]='coinForm.invalid'>
+                <mat-icon class="mr-2">save</mat-icon>Submit
+              </button>
+              <button type="reset" mat-raised-button color="primary">
+                <mat-icon class="mr-2">360</mat-icon>Reset
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- for coin ends -->
+
+
+  </div>
+  <ng-template #show_message>
+    <h6 class="text-center dialog-title">Interview Rounds Hasn't Been Scheduled.</h6>
+  </ng-template>
+</div>

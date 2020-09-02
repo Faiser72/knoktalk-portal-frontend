@@ -1,0 +1,14 @@
+<mat-icon matSuffix class="cross" (click)='close()'>clear</mat-icon>
+<h5 mat-dialog-title class="dialog-title">Add Sound Section</h5>
+<div mat-dialog-content>
+    <p class="dialog-text"></p>
+    <mat-form-field class="login-full-width">
+        <mat-label>Section Name </mat-label>
+        <input matInput type="text">
+        <!-- <mat-icon matSuffix>email</mat-icon> -->
+    </mat-form-field>
+    <p style="color : red" *ngIf='emailError'>{{emailError}}</p>
+</div>
+<div mat-dialog-actions>
+    <button class="btn btn-sm btn-danger btn-block text-uppercase"  type="submit">Submit</button>
+</div>
