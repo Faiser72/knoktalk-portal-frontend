@@ -16,11 +16,11 @@ export class ReportsComponent implements OnInit {
   userreport
 
   routeToUserReport() {
-    this.route.navigate(['/userreport'])
+    this.route.navigate(['/home/userreport'])
   }
 
   routeToRewardsReport() {
-    this.route.navigate(['/rewardsreport'])
+    this.route.navigate(['/home/rewardsreport'])
   }
 
 }

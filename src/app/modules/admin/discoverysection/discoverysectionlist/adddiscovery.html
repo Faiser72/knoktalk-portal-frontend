@@ -1,14 +1,37 @@
+<!-- 
+  File Name :- AllVideos.html	            Created Date :-28-08-2020           Created By :- Rambabu (Emp. Id : VTPL/BLR/0013)			
+
+  Description :- This component is responsible to create discovery section
+
+===============================================================================================================================
+  Sl.No			    Description			                          Modified By		    	                        Modified Date	
+===============================================================================================================================
+
+-->
+
 <mat-icon matSuffix style="float: right; cursor: pointer;" (click)='close()'>clear</mat-icon>
 <h4 mat-dialog-title class="dialog-title">Add Discovery Section</h4>
-<div mat-dialog-content>
+<form [formGroup]="addDiscoverSectionForm" class="form-group" >
+  <div>
     <!-- <p class="dialog-text">Enter your email to reset your password.</p> -->
     <mat-form-field class="login-full-width">
-        <mat-label>Discovery Section</mat-label>
-        <input matInput type="text">
-        <!-- <mat-icon matSuffix>email</mat-icon> -->
+      <mat-label>Discovery Section Name</mat-label>
+      <input matInput type="text" formControlName="sectionName" [errorStateMatcher]="matcher">
+      <mat-hint>*Required</mat-hint>
+      <!-- <mat-icon matSuffix>email</mat-icon> -->
+      <mat-error
+        *ngIf="addDiscoverSectionForm.get('sectionName').hasError('sectionName') && !addDiscoverSectionForm.get('sectionName').hasError('sectionName')">
+        Please enter discovery section name
+      </mat-error>
+
+      <mat-error
+        *ngIf="addDiscoverSectionForm.get('sectionName').hasError('reqiured')">
+        discovery section name is reqiured
+      </mat-error>
     </mat-form-field>
-    <p style="color : red" *ngIf='emailError'>{{emailError}}</p>
-</div>
-<div mat-dialog-actions>
-    <button class="btn btn-sm btn-primary btn-block text-uppercase"  type="submit">Send Now</button>
-</div>
+    <!-- <p style="color : red" *ngIf='emailError'>{{emailError}}</p> -->
+  </div>
+  <div mat-dialog-actions>
+    <button class="btn btn-sm btn-primary btn-block text-uppercase" type="submit" [disabled]='addDiscoverSectionForm.invalid'>Send Now</button>
+  </div>
+</form>

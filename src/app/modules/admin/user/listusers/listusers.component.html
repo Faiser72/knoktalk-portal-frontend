@@ -14,6 +14,8 @@ Description :- this component is used to block, unblock and add or substract of 
 <table id="paginationSimpleNumbers" class="table text-center" width="100%">
     <thead class="orange">
         <tr>
+            <th class="th-sm">Sl No
+            </th>
             <th class="th-sm">KnokTalk ID
             </th>
             <th class="th-sm">User Name
@@ -31,200 +33,43 @@ Description :- this component is used to block, unblock and add or substract of 
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>vikas123@knoktalk</td>
-            <td>vikuneha</td>
-            <td>Vikash</td>
-            <td>Kumar</td>
-            <td>Android</td>
-            <td>02-09-2020</td>
+        <tr *ngFor="let user of usersList ; let i = index;">
+            <td>{{i+1}}</td>
+            <td>{{user.knoktalkId}}</td>
+            <td>{{user.username}}</td>
+            <td>{{user.firstName}}</td>
+            <td>{{user.lastName}}</td>
+            <td>{{user.device}}</td>
+            <td>{{user.createdDate}}</td>
             <td class="text-center">
                 <mat-icon color='warn' matTooltip="Block" [matTooltipPosition]="'below'" matTooltipHideDelay="500"
-                    class="edit-btn">block</mat-icon>
+                    class="edit-btn" *ngIf='user.block==0' (click)='blockUser(user)'>block</mat-icon>
                 <mat-icon color='accent' matTooltip="UnBlock" [matTooltipPosition]="'below'" matTooltipHideDelay="500"
-                    class="edit-btn">360</mat-icon>
+                    class="edit-btn" *ngIf='user.block==1' (click)='unblockUser(user)'>360</mat-icon>
+                <mat-icon color='warn' matTooltip="UnBlock" [matTooltipPosition]="'below'" matTooltipHideDelay="500"
+                    class="edit-btn" (click)='deleteUser(user)'>delete_forever</mat-icon>
                 <mat-icon color='warn' matTooltip="Gift/Coin" [matTooltipPosition]="'below'" matTooltipHideDelay="500"
-                    class="delete-btn" (click)='openDialog("hii")'>card_giftcard
+                    class="delete-btn" (click)='openDialog(user)'>card_giftcard
                 </mat-icon>
             </td>
         </tr>
-        <tr>
-            <td>rama346@knoktalk</td>
-            <td>cuterambabu</td>
-            <td>Ram</td>
-            <td>Babu</td>
-            <td>IOS</td>
-            <td>04-09-2020</td>
-            <td class="text-center">
-                <mat-icon color='warn' matTooltip="Block" [matTooltipPosition]="'below'" matTooltipHideDelay="500"
-                    class="edit-btn">block</mat-icon>
-                <mat-icon color='accent' matTooltip="UnBlock" [matTooltipPosition]="'below'" matTooltipHideDelay="500"
-                    class="edit-btn">360</mat-icon>
-                <mat-icon color='warn' matTooltip="Gift/Coin" [matTooltipPosition]="'below'" matTooltipHideDelay="500"
-                    class="delete-btn" (click)='openDialog("hii")'>card_giftcard
-                </mat-icon>
-            </td>
-        </tr>
-
-        <tr>
-            <td>manju987@knoktalk</td>
-            <td>manjuraks</td>
-            <td>Manjunath</td>
-            <td>R</td>
-            <td>Android</td>
-            <td>03-07-2020</td>
-            <td class="text-center">
-                <mat-icon color='warn' matTooltip="Block" [matTooltipPosition]="'below'" matTooltipHideDelay="500"
-                    class="edit-btn">block</mat-icon>
-                <mat-icon color='accent' matTooltip="UnBlock" [matTooltipPosition]="'below'" matTooltipHideDelay="500"
-                    class="edit-btn">360</mat-icon>
-                <mat-icon color='warn' matTooltip="Gift/Coin" [matTooltipPosition]="'below'" matTooltipHideDelay="500"
-                    class="delete-btn" (click)='openDialog("hii")'>card_giftcard
-                </mat-icon>
-            </td>
-        </tr>
-        <tr>
-            <td>sudhakar345@knoktalk</td>
-            <td>sudhakarsuda</td>
-            <td>Sudhakar</td>
-            <td>Reddy</td>
-            <td>Windows</td>
-            <td>10-08-2020</td>
-            <td class="text-center">
-                <mat-icon color='warn' matTooltip="Block" [matTooltipPosition]="'below'" matTooltipHideDelay="500"
-                    class="edit-btn">block</mat-icon>
-                <mat-icon color='accent' matTooltip="UnBlock" [matTooltipPosition]="'below'" matTooltipHideDelay="500"
-                    class="edit-btn">360</mat-icon>
-                <mat-icon color='warn' matTooltip="Gift/Coin" [matTooltipPosition]="'below'" matTooltipHideDelay="500"
-                    class="delete-btn" (click)='openDialog("hii")'>card_giftcard
-                </mat-icon>
-            </td>
-        </tr>
-        <!-- <tr>
-            <td>Haley Kennedy</td>
-            <td>Senior Marketing Designer</td>
-            <td>London</td>
-            <td>2012/12/18</td>
-            <td>$313,500</td>
-            <td>Edit|Delete</td>
-        </tr>
-        <tr>
-            <td>Tatyana Fitzpatrick</td>
-            <td>Regional Director</td>
-            <td>London</td>
-            <td>2010/03/17</td>
-            <td>$385,750</td>
-            <td>Edit|Delete</td>
-        </tr>
-        <tr>
-            <td>Michael Silva</td>
-            <td>Marketing Designer</td>
-            <td>London</td>
-            <td>2012/11/27</td>
-            <td>$198,500</td>
-            <td>Edit|Delete</td>
-        </tr>
-        <tr>
-            <td>Paul Byrd</td>
-            <td>Chief Financial Officer (CFO)</td>
-            <td>New York</td>
-            <td>2010/06/09</td>
-            <td>$725,000</td>
-            <td>Edit|Delete</td>
-        </tr>
-        <tr>
-            <td>Gloria Little</td>
-            <td>Systems Administrator</td>
-            <td>New York</td>
-            <td>2009/04/10</td>
-            <td>$237,500</td>
-            <td>Edit|Delete</td>
-        </tr>
-        <tr>
-            <td>Bradley Greer</td>
-            <td>Software Engineer</td>
-            <td>London</td>
-            <td>2012/10/13</td>
-            <td>$132,000</td>
-            <td>Edit|Delete</td>
-        </tr>
-        <tr>
-            <td>Dai Rios</td>
-            <td>Personnel Lead</td>
-            <td>Edinburgh</td>
-            <td>2012/09/26</td>
-            <td>$217,500</td>
-            <td>Edit|Delete</td>
-        </tr>
-        <tr>
-            <td>Jenette Caldwell</td>
-            <td>Development Lead</td>
-            <td>New York</td>
-            <td>2011/09/03</td>
-            <td>$345,000</td>
-            <td>Edit|Delete</td>
-        </tr>
-        <tr>
-            <td>Yuri Berry</td>
-            <td>Chief Marketing Officer (CMO)</td>
-            <td>New York</td>
-            <td>2009/06/25</td>
-            <td>$675,000</td>
-            <td>Edit|Delete</td>
-        </tr>
-        <tr>
-            <td>Caesar Vance</td>
-            <td>Pre-Sales Support</td>
-            <td>New York</td>
-            <td>2011/12/12</td>
-            <td>$106,450</td>
-            <td>Edit|Delete</td>
-        </tr>
-        <tr>
-            <td>Doris Wilder</td>
-            <td>Sales Assistant</td>
-            <td>Sidney</td>
-            <td>2010/09/20</td>
-            <td>$85,600</td>
-            <td>Edit|Delete</td>
-        </tr>
-        <tr>
-            <td>Angelica Ramos</td>
-            <td>Chief Executive Officer (CEO)</td>
-            <td>London</td>
-            <td>2009/10/09</td>
-            <td>$1,200,000</td>
-            <td>Edit|Delete</td>
-        </tr>
-        <tr>
-            <td>Gavin Joyce</td>
-            <td>Developer</td>
-            <td>Edinburgh</td>
-            <td>2010/12/22</td>
-            <td>$92,575</td>
-            <td>Edit|Delete</td>
-        </tr>
-        <tr>
-            <td>Jennifer Chang</td>
-            <td>Regional Director</td>
-            <td>Singapore</td>
-            <td>2010/11/14</td>
-            <td>$357,650</td>
-            <td>Edit|Delete</td>
-        </tr> -->
 
     </tbody>
     <tfoot class="orange">
         <tr>
-            <th class="th-sm">ID
+            <th class="th-sm">Sl No
             </th>
-            <th class="th-sm">Name
+            <th class="th-sm">KnokTalk ID
             </th>
-            <th class="th-sm">UserName
+            <th class="th-sm">User Name
+            </th>
+            <th class="th-sm">First Name
+            </th>
+            <th class="th-sm">Last Name
             </th>
             <th class="th-sm">Device
             </th>
-            <th class="th-sm">Created
+            <th class="th-sm">Created Date
             </th>
             <th class="th-sm">Action
             </th>

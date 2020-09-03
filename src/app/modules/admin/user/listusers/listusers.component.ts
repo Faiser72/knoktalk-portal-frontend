@@ -4,8 +4,9 @@ import {
   MAT_DIALOG_DATA,
   MatDialogRef,
 } from "@angular/material/dialog";
-import { MatRadioChange, TooltipPosition } from '@angular/material';
+import { MatRadioChange, TooltipPosition, MatSnackBar } from '@angular/material';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { UserserviceService } from 'src/app/modules/service/users/userservice.service';
 declare var $: any;
 interface Transaction {
   value: string;
@@ -19,16 +20,63 @@ interface Transaction {
 })
 export class ListusersComponent implements OnInit {
 
-  constructor(public dialog: MatDialog) { }
+  usersList: any;
+
+  constructor(public dialog: MatDialog,
+    private _snackBar: MatSnackBar,
+    public userService: UserserviceService) { }
 
   ngOnInit() {
-    $(document).ready(function () {
-      //Pagination numbers
-      // $.fn.dataTable.ext.classes.sPageButton = 'button button-primary';
-      $('#paginationSimpleNumbers').DataTable({
-        "pagingType": "simple_numbers"
-      });
-    });
+    //This method is used to get the data from back end and to display in fornt end 
+    this.getAllUserDetails();
+  }
+
+  //This method is used to get the data from back end and to display in fornt end 
+  getAllUserDetails() {
+    this.userService.getAllUsersDetails().subscribe((data: any) => {
+      if (data.success) {
+        this.usersList = data['listObject'];
+        $(document).ready(function () {
+          $('#paginationSimpleNumbers').DataTable();
+        });
+      }
+    })
+  }
+
+  blockUser(user) {
+    if (confirm(`Block ${user.username} user`)) {
+      this.userService.blockUser(user.knoktalkId).subscribe((response: any) => {
+        if (response.success) {
+          this.getAllUserDetails();
+        }
+        this._snackBar.open(user.username, response.message, { duration: 2500, });
+      })
+    }
+  }
+
+  unblockUser(user) {
+    if (confirm(`UnBlock ${user.username} user`)) {
+      this.userService.unBlockUser(user.knoktalkId).subscribe((response: any) => {
+        if (response.success) {
+          this.getAllUserDetails();
+        }
+        this._snackBar.open(user.username, response.message, { duration: 2500, });
+      })
+    }
+  }
+
+  deleteUser(user){
+    if (confirm(`Delete ${user.username} user`)) {
+      let index = this.usersList.findIndex((data: any) => data.knoktalkId === user.knoktalkId);
+      this.userService.deleteUser(user.knoktalkId).subscribe((response: any) => {
+        if (response.success) {
+          this.usersList.splice(index, 1);
+          this.getAllUserDetails();
+          // this.customFilter();
+        }
+        this._snackBar.open(user.username, response.message, { duration: 2500, });
+      })
+    }
   }
 
   //for popup View Rounds
