@@ -104,19 +104,25 @@
     height: 700px;
     transition: width 1s;
     // background-color: orange;
-    background-image: linear-gradient(-60deg, #ff5858 0%, #f09819 100%);    
+    // background-image: linear-gradient(-60deg, #ff5858 0%, #f09819 100%);    
     // background-color:var(--main-font-3-color) ;
-    // background: -webkit-linear-gradient(top,rgba(255,143,28,1),rgba(255,255,255,1), rgba(80,158,47,1));
+    background: -webkit-linear-gradient(top,rgba(255,143,28,1),rgba(255,255,255,1), rgba(80,158,47,1));
   }
   
   .side-card .mi{
    margin-top: 10px;
+   color: navy;
+  }
+
+  .side-card mat-icon{
+    color: navy;
   }
   
   .side-card .txt{
     /* width: 10rem;
     height: 700px; */
     display: none;
+    color: navy;
     /* transition: width 2s; */
     /* background-color:var(--main-bg-2-color) ; */
   } 
