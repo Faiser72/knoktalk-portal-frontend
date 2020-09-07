@@ -25,10 +25,10 @@ import { DashboardComponent } from "src/app/modules/dashboard/dashboard.componen
 import { AdminModule } from "src/app/modules/admin/admin.module";
 import { UserModule } from 'src/app/modules/admin/user/user.module';
 import { SoundModule } from 'src/app/modules/admin/sound/sound.module';
-import {MatLabel} from '@angular/material/form-field';
 import { DiscoverysectionModule } from 'src/app/modules/admin/discoverysection/discoverysection.module';
 import { ReportsModule } from 'src/app/modules/admin/reports/reports.module';
 import { AllvideosModule } from 'src/app/modules/admin/allvideos/allvideos.module';
+import { Ng2OdometerModule } from "ng2-odometer";
 @NgModule({
   declarations: [DefaultComponent, DashboardComponent],
   imports: [
@@ -56,7 +56,8 @@ import { AllvideosModule } from 'src/app/modules/admin/allvideos/allvideos.modul
     SoundModule,
     AllvideosModule,
     DiscoverysectionModule,
-    ReportsModule
+    ReportsModule,
+    Ng2OdometerModule
   ],
 })
 export class DefaultModule {}

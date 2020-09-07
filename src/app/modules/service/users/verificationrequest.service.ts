@@ -11,6 +11,16 @@ export class VerificationrequestService {
 
   // get All Verification details
   getAllVerificationDetails() {
-    return this.http.get(this.baseUrl + '/admin/verificationrequest/getVerificationAndUserDetails')
+    return this.http.get(this.baseUrl + '/admin/verificationrequest/getAllVerificationDetails')
+  }
+
+  // approveUser 
+  approveUser(userId: any) {
+    return this.http.put(`${this.baseUrl}/admin/users/approveUser`, null, { params: { "userId": userId } });
+  }
+
+  // decline User
+  declineUser(userId: any) {
+    return this.http.put(`${this.baseUrl}/admin/users/declineUser`, null, { params: { "userId": userId } });
   }
 }

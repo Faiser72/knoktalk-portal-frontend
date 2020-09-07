@@ -16,17 +16,17 @@ export class UserserviceService {
   }
 
   // blockUser 
-  blockUser(knoktalkId: any) {
-    return this.http.put(`${this.baseUrl}/admin/users/blockUser`, null, { params: { "knoktalkId": knoktalkId } });
+  blockUser(userId: any) {
+    return this.http.put(`${this.baseUrl}/admin/users/blockUser`, null, { params: { "userId": userId } });
   }
 
   // blockUser 
-  unBlockUser(knoktalkId: any) {
-    return this.http.put(`${this.baseUrl}/admin/users/unBlockUser`, null, { params: { "knoktalkId": knoktalkId } });
+  unBlockUser(userId: any) {
+    return this.http.put(`${this.baseUrl}/admin/users/unBlockUser`, null, { params: { "userId": userId } });
   }
 
   // blockUser 
-  deleteUser(knoktalkId: any) {
-    return this.http.put(`${this.baseUrl}/admin/users/deleteUser`, null, { params: { "knoktalkId": knoktalkId } });
+  deleteUser(userId: any) {
+    return this.http.put(`${this.baseUrl}/admin/users/deleteUser`, null, { params: { "userId": userId } });
   }
 }

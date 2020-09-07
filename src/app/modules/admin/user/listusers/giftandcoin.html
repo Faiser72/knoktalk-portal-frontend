@@ -14,8 +14,19 @@
 <mat-icon matSuffix style="float: right; cursor: pointer;" (click)='close()'>clear</mat-icon>
 <h5 mat-dialog-title class="text-center title-header">Gift / Coin</h5>
 <div mat-dialog-content>
-  <p class="dialog-text"><span class="dialog-title">Id:</span> {{userId}}</p>
-  <p class="dialog-text"><span class="dialog-title">Name:</span> {{userName}}</p>
+  <div class="mt-3 mx-auto">
+    <div class="row d-flex justify-content-around mx-auto">
+      <div class="col">
+        <p class="dialog-text"><span class="dialog-title">KnokTalkId:</span> {{userObject.knoktalkId}}</p>
+      </div>
+      <div class="col">
+        <p class="dialog-text"><span class="dialog-title">First Name:</span> {{userObject.firstName}}</p>
+      </div>
+      <div class="col">
+        <p class="dialog-text"><span class="dialog-title">Last Name:</span> {{userObject.lastName}}</p>
+      </div>
+    </div>
+  </div>
   <mat-divider></mat-divider>
   <!-- <div class="mat-elevation-z8" *ngIf="interviewRounds.length > 0; else show_message">
       <table class="table table-bordered">
@@ -46,7 +57,7 @@
 
     <!-- for gift starts-->
     <div *ngIf="giftOrCoinValue=='gift'">
-      <h5 class="text-success mt-3">No of Gifts user has:{{noOfGifts}}</h5>
+      <h5 class="text-success mt-3">No of Gifts user has : {{ walletObject.gifts }}</h5>
       <div class="card gcformCard w-75 mx-auto">
         <form action="" class="form-group customhover" [formGroup]="giftForm" (ngSubmit)="giftFormSubmit()">
           <h4 class="mt-5">Transaction</h4>
@@ -64,7 +75,7 @@
             <input matInput placeholder="Ex. 20" value="" formControlName="rewardUpdate" />
           </mat-form-field>
 
-          <h5 class="text-success mt-3">Balance Gifts:{{noOfGifts}}</h5>
+          <h5 class="text-success mt-3">Balance Gifts : {{ walletObject.gifts }}</h5>
 
           <div class="row d-flex justify-content-around mt-4 ml-5 mr-5">
 
@@ -86,7 +97,7 @@
 
     <!-- for coin starts -->
     <div *ngIf="giftOrCoinValue=='coin'">
-      <h5 class="text-success mt-3">No of Coins user has:{{noOfCoins}}</h5>
+      <h5 class="text-success mt-3">No of Coins user has : {{ walletObject.coins }}</h5>
       <div class="card gcformCard w-75 mx-auto">
         <form action="" class="form-group customhover" [formGroup]="coinForm" (ngSubmit)="coinFormSubmit()">
           <h4 class="mt-5">Transaction</h4>
@@ -104,7 +115,7 @@
             <input matInput placeholder="Ex. 20" value="" formControlName="rewardUpdate" />
           </mat-form-field>
 
-          <h5 class="text-success mt-3">Balance Coins:{{noOfCoins}}</h5>
+          <h5 class="text-success mt-3">Balance Coins : {{ walletObject.coins }}</h5>
 
           <div class="row d-flex justify-content-around mt-4 ml-5 mr-5">
             <div class="col-lg-12 col-md-12 col-sm-12 d-flex justify-content-around">

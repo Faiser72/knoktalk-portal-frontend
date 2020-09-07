@@ -7,6 +7,7 @@ import {
 import { MatRadioChange, TooltipPosition, MatSnackBar } from '@angular/material';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { UserserviceService } from 'src/app/modules/service/users/userservice.service';
+import { WalletService } from 'src/app/modules/service/wallet/wallet.service';
 declare var $: any;
 interface Transaction {
   value: string;
@@ -45,7 +46,7 @@ export class ListusersComponent implements OnInit {
 
   blockUser(user) {
     if (confirm(`Block ${user.username} user`)) {
-      this.userService.blockUser(user.knoktalkId).subscribe((response: any) => {
+      this.userService.blockUser(user.userId).subscribe((response: any) => {
         if (response.success) {
           this.getAllUserDetails();
         }
@@ -56,7 +57,7 @@ export class ListusersComponent implements OnInit {
 
   unblockUser(user) {
     if (confirm(`UnBlock ${user.username} user`)) {
-      this.userService.unBlockUser(user.knoktalkId).subscribe((response: any) => {
+      this.userService.unBlockUser(user.userId).subscribe((response: any) => {
         if (response.success) {
           this.getAllUserDetails();
         }
@@ -67,8 +68,8 @@ export class ListusersComponent implements OnInit {
 
   deleteUser(user){
     if (confirm(`Delete ${user.username} user`)) {
-      let index = this.usersList.findIndex((data: any) => data.knoktalkId === user.knoktalkId);
-      this.userService.deleteUser(user.knoktalkId).subscribe((response: any) => {
+      let index = this.usersList.findIndex((data: any) => data.userId === user.userId);
+      this.userService.deleteUser(user.userId).subscribe((response: any) => {
         if (response.success) {
           this.usersList.splice(index, 1);
           this.getAllUserDetails();
@@ -109,11 +110,13 @@ export class GiftAndCoin {
 
   giftForm: FormGroup;
   coinForm: FormGroup
+  walletObject: any;
 
 
 
   constructor(public dialog: MatDialog,
     private fb: FormBuilder,
+    private walletService:WalletService,
     public dialogRef: MatDialogRef<GiftAndCoin>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
     this.userObject = data.pageValue;
@@ -133,6 +136,12 @@ export class GiftAndCoin {
     this.giftFormBuilder();
     this.coinFormBuilder();
     console.log(this.userObject);
+    this.walletService.getWalletDetailsByUserId(this.userObject.userId).subscribe((response: any) => {
+      if (response.success) {
+        this.walletObject=response.object;
+        console.log(this.walletObject);
+      }
+    })
   }
 
   giftFormBuilder() {
