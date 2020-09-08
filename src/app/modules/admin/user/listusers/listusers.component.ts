@@ -8,6 +8,8 @@ import { MatRadioChange, TooltipPosition, MatSnackBar } from '@angular/material'
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { UserserviceService } from 'src/app/modules/service/users/userservice.service';
 import { WalletService } from 'src/app/modules/service/wallet/wallet.service';
+import { AppComponent } from 'src/app/app.component';
+import { isNullOrUndefined } from 'util';
 declare var $: any;
 interface Transaction {
   value: string;
@@ -44,30 +46,33 @@ export class ListusersComponent implements OnInit {
     })
   }
 
+  // this method is used to block user
   blockUser(user) {
-    if (confirm(`Block ${user.username} user`)) {
+    if (confirm(`Block ${user.knoktalkId} user`)) {
       this.userService.blockUser(user.userId).subscribe((response: any) => {
         if (response.success) {
           this.getAllUserDetails();
         }
-        this._snackBar.open(user.username, response.message, { duration: 2500, });
+        this._snackBar.open(user.knoktalkId, response.message, { duration: 2500, panelClass: ['mat-primary'] });
       })
     }
   }
 
+  // this method is used to Unblock user
   unblockUser(user) {
-    if (confirm(`UnBlock ${user.username} user`)) {
+    if (confirm(`UnBlock ${user.knoktalkId} user`)) {
       this.userService.unBlockUser(user.userId).subscribe((response: any) => {
         if (response.success) {
           this.getAllUserDetails();
         }
-        this._snackBar.open(user.username, response.message, { duration: 2500, });
+        this._snackBar.open(user.knoktalkId, response.message, { duration: 2500, });
       })
     }
   }
 
-  deleteUser(user){
-    if (confirm(`Delete ${user.username} user`)) {
+  // this method is used to delete user
+  deleteUser(user) {
+    if (confirm(`Delete ${user.knoktalkId} user`)) {
       let index = this.usersList.findIndex((data: any) => data.userId === user.userId);
       this.userService.deleteUser(user.userId).subscribe((response: any) => {
         if (response.success) {
@@ -75,7 +80,7 @@ export class ListusersComponent implements OnInit {
           this.getAllUserDetails();
           // this.customFilter();
         }
-        this._snackBar.open(user.username, response.message, { duration: 2500, });
+        this._snackBar.open(user.knoktalkId, response.message, { duration: 2500, });
       })
     }
   }
@@ -92,7 +97,6 @@ export class ListusersComponent implements OnInit {
       // console.log('The dialog was closed.');
     });
   }
-
 }
 
 // giftandcoin Component
@@ -111,12 +115,15 @@ export class GiftAndCoin {
   giftForm: FormGroup;
   coinForm: FormGroup
   walletObject: any;
+  giftOperation: string;
+  coinOperation: string;
 
+  isShown: boolean = false; // hidden by default
 
 
   constructor(public dialog: MatDialog,
     private fb: FormBuilder,
-    private walletService:WalletService,
+    private walletService: WalletService,
     public dialogRef: MatDialogRef<GiftAndCoin>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
     this.userObject = data.pageValue;
@@ -135,41 +142,141 @@ export class GiftAndCoin {
   ngOnInit() {
     this.giftFormBuilder();
     this.coinFormBuilder();
-    console.log(this.userObject);
+    this.getWalletByUserId();
+  }
+
+
+  // this methos is used to get the wallet data by using using Id
+  getWalletByUserId() {
     this.walletService.getWalletDetailsByUserId(this.userObject.userId).subscribe((response: any) => {
       if (response.success) {
-        this.walletObject=response.object;
+        this.walletObject = response.object;
         console.log(this.walletObject);
       }
     })
   }
 
-  giftFormBuilder() {
-    this.giftForm = this.fb.group({
-      rewardUpdate: [null, [Validators.required]]
-    })
-  }
-
-  coinFormBuilder() {
-    this.coinForm = this.fb.group({
-      rewardUpdate: [null, [Validators.required]]
-    })
-  }
-
+  // gift code starts here
   // to get value from radio button of gift or coin
   giftOrCoin(gcradio: MatRadioChange) {
     this.giftOrCoinValue = gcradio.value;
   }
 
+  giftFormBuilder() {
+    this.giftForm = this.fb.group({
+      gifts: "",
+      rewardsUpdate: [
+        null,
+        Validators.compose([
+          Validators.required,
+          Validators.pattern("^[0-9]+$"),
+        ]),
+      ],
+    })
+  }
+
+  giftDropdown(operation) {
+    this.giftOperation = operation.value;
+  }
+
+
+  // this method is used to do the add and substraction operation of gift
+  updateGift(value) {
+    let updatedGift: number;
+    if (this.giftOperation == "addGift") {
+      updatedGift = +this.walletObject.gifts + +value
+      this.giftForm.patchValue({ gifts: updatedGift })
+    }
+    else if (this.giftOperation == "substractGift") {
+      updatedGift = +this.walletObject.gifts - +value
+      this.giftForm.patchValue({ gifts: updatedGift })
+    }
+    else {
+      alert("please select an operation");
+    }
+  }
+
   // gift form submit
   giftFormSubmit() {
-
+    if (this.giftForm.valid) {
+      this.walletService.updateWalletGifts(this.giftForm.value, this.userObject.userId).subscribe((data: any) => {
+        if (data.success) {
+          this.getWalletByUserId();
+          alert(data.message)
+          this.toggleShow();
+        } else {
+          alert(data.message)
+        }
+      });
+    } else {
+      alert("Please, fill the proper details.");
+    }
   }
+  // gifts code ends here
+
+  // toggle for displaying table
+  toggleShow() {
+    this.isShown = !this.isShown;
+  }
+
+  // coin code starts here
+  coinFormBuilder() {
+    this.coinForm = this.fb.group({
+      coins: "",
+      rewardsUpdate: [
+        null,
+        Validators.compose([
+          Validators.required,
+          Validators.pattern("^[0-9]+$"),
+        ]),
+      ],
+    })
+  }
+
+  // to get the value of dropdown from coin
+  coinDropdown(operation) {
+    this.coinOperation = operation.value;
+  }
+
+  // this method is used to do the add and substraction operation of Coins
+  updateCoin(value) {
+    let updatedCoin: number;
+    if (this.coinOperation == "addCoin") {
+      updatedCoin = +this.walletObject.coins + +value
+      this.coinForm.patchValue({ coins: updatedCoin })
+    }
+    else if (this.coinOperation == "substractCoin") {
+      updatedCoin = +this.walletObject.coins - +value
+      this.coinForm.patchValue({ coins: updatedCoin })
+    }
+    else {
+      alert("please select an operation");
+    }
+  }
+
 
   // coin form submit
   coinFormSubmit() {
-
+    if (this.coinForm.valid) {
+      this.walletService.updateWalletCoin(this.coinForm.value, this.userObject.userId).subscribe((data: any) => {
+        if (data.success) {
+          this.walletService.getWalletDetailsByUserId(this.userObject.userId).subscribe((response: any) => {
+            if (response.success) {
+              this.walletObject = response.object;
+            }
+          });
+          alert(data.message)
+          this.toggleShow();
+        } else {
+          alert(data.message)
+        }
+      });
+    } else {
+      alert("Please, fill the proper details.");
+    }
   }
+
+  // coin code ends here
 
   close(): void {
     this.dialogRef.close();

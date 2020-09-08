@@ -14,18 +14,13 @@ export class WalletService {
     return this.http.get(`${this.baseUrl}/admin/wallet/getWalletDetailsByUserId/${userId}`)
   }
 
-  // // blockUser 
-  // blockUser(userId: any) {
-  //   return this.http.put(`${this.baseUrl}/admin/users/blockUser`, null, { params: { "userId": userId } });
-  // }
+  // update Gift Details
+  updateWalletGifts(walletDetails: any, userId: number) {
+    return this.http.put(`${this.baseUrl}/admin/wallet/updateWalletGifts/${userId}`, walletDetails);
+  }
 
-  // // blockUser 
-  // unBlockUser(userId: any) {
-  //   return this.http.put(`${this.baseUrl}/admin/users/unBlockUser`, null, { params: { "userId": userId } });
-  // }
-
-  // // blockUser 
-  // deleteUser(userId: any) {
-  //   return this.http.put(`${this.baseUrl}/admin/users/deleteUser`, null, { params: { "userId": userId } });
-  // }
+  // update Coin Details
+  updateWalletCoin(walletDetails: any, userId: number) {
+    return this.http.put(`${this.baseUrl}/admin/wallet/updateWalletCoin/${userId}`, walletDetails);
+  }
 }

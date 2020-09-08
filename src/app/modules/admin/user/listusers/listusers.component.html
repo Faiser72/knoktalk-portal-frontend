@@ -22,8 +22,8 @@ Description :- this component is used to block, unblock and add or substract of 
             </th>
             <th class="th-sm">Last Name
             </th>
-            <th class="th-sm">Device
-            </th>
+            <!-- <th class="th-sm">Device
+            </th> -->
             <th class="th-sm">Created Date
             </th>
             <th class="th-sm">Action
@@ -36,14 +36,14 @@ Description :- this component is used to block, unblock and add or substract of 
             <td>{{user.knoktalkId}}</td>
             <td>{{user.firstName}}</td>
             <td>{{user.lastName}}</td>
-            <td>{{user.device}}</td>
+            <!-- <td>{{user.device}}</td> -->
             <td>{{user.createdDate}}</td>
             <td class="text-center">
                 <mat-icon color='warn' matTooltip="Block" [matTooltipPosition]="'below'" matTooltipHideDelay="500"
                     class="edit-btn" *ngIf='user.block==0' (click)='blockUser(user)'>block</mat-icon>
                 <mat-icon color='accent' matTooltip="UnBlock" [matTooltipPosition]="'below'" matTooltipHideDelay="500"
                     class="edit-btn" *ngIf='user.block==1' (click)='unblockUser(user)'>360</mat-icon>
-                <mat-icon color='warn' matTooltip="UnBlock" [matTooltipPosition]="'below'" matTooltipHideDelay="500"
+                <mat-icon color='warn' matTooltip="Delete" [matTooltipPosition]="'below'" matTooltipHideDelay="500"
                     class="edit-btn" (click)='deleteUser(user)'>delete_forever</mat-icon>
                 <mat-icon color='warn' matTooltip="Gift/Coin" [matTooltipPosition]="'below'" matTooltipHideDelay="500"
                     class="delete-btn" (click)='openDialog(user)'>card_giftcard
@@ -58,14 +58,12 @@ Description :- this component is used to block, unblock and add or substract of 
             </th>
             <th class="th-sm">KnokTalk ID
             </th>
-            <th class="th-sm">User Name
-            </th>
             <th class="th-sm">First Name
             </th>
             <th class="th-sm">Last Name
             </th>
-            <th class="th-sm">Device
-            </th>
+            <!-- <th class="th-sm">Device
+            </th> -->
             <th class="th-sm">Created Date
             </th>
             <th class="th-sm">Action

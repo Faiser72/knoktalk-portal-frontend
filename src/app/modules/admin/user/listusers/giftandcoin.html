@@ -62,8 +62,8 @@
         <form action="" class="form-group customhover" [formGroup]="giftForm" (ngSubmit)="giftFormSubmit()">
           <h4 class="mt-5">Transaction</h4>
           <mat-form-field class="field-full-width">
-            <mat-label>Select Transaction </mat-label>
-            <mat-select name="gift">
+            <mat-label>Select Operation </mat-label>
+            <mat-select name="gift" (selectionChange)="giftDropdown($event)">
               <mat-option *ngFor="let gift of gift" [value]="gift.value">
                 {{gift.viewValue}}
               </mat-option>
@@ -72,10 +72,21 @@
 
           <mat-form-field class="field-full-width">
             <mat-label>Reward Update</mat-label>
-            <input matInput placeholder="Ex. 20" value="" formControlName="rewardUpdate" />
+            <!-- <input matInput placeholder="Ex. 20" value="" type="number" #giftUpdateValue (input)="updateGift(giftUpdateValue.value)" required="required" formControlName="rewardsUpdate" autocomplete="off"/> -->
+            <input matInput placeholder="Ex. 20" value="" type="number"
+              (input)="updateGift(giftForm.value.rewardsUpdate)" required="required" formControlName="rewardsUpdate"
+              autocomplete="off" />
+          </mat-form-field>
+          <p style="color: red;"
+            *ngIf="giftForm.get('rewardsUpdate') && giftForm.get('rewardsUpdate').touched && giftForm.get('rewardsUpdate').invalid">
+            Please enter this field</p>
+
+          <mat-form-field class="field-full-width">
+            <mat-label>Balance Gifts</mat-label>
+            <input matInput placeholder="Ex. 20" value="" formControlName="gifts" readonly=true />
           </mat-form-field>
 
-          <h5 class="text-success mt-3">Balance Gifts : {{ walletObject.gifts }}</h5>
+          <!-- <h5 class="text-success mt-3">Balance Gifts : {{ walletObject.gifts }}</h5> -->
 
           <div class="row d-flex justify-content-around mt-4 ml-5 mr-5">
 
@@ -102,8 +113,8 @@
         <form action="" class="form-group customhover" [formGroup]="coinForm" (ngSubmit)="coinFormSubmit()">
           <h4 class="mt-5">Transaction</h4>
           <mat-form-field class="field-full-width">
-            <mat-label>Select Transaction </mat-label>
-            <mat-select name="coin">
+            <mat-label>Select Operation </mat-label>
+            <mat-select name="coin" (selectionChange)="coinDropdown($event)">
               <mat-option *ngFor="let coin of coin" [value]="coin.value">
                 {{coin.viewValue}}
               </mat-option>
@@ -112,10 +123,19 @@
 
           <mat-form-field class="field-full-width">
             <mat-label>Reward Update</mat-label>
-            <input matInput placeholder="Ex. 20" value="" formControlName="rewardUpdate" />
+            <!-- <input matInput placeholder="Ex. 20" value="" type="number" #giftUpdateValue (input)="updateGift(giftUpdateValue.value)" required="required" formControlName="rewardsUpdate" autocomplete="off"/> -->
+            <input matInput placeholder="Ex. 20" value="" type="number"
+              (input)="updateCoin(coinForm.value.rewardsUpdate)" required="required" formControlName="rewardsUpdate"
+              autocomplete="off" />
           </mat-form-field>
+          <p style="color: red;"
+            *ngIf="coinForm.get('rewardsUpdate') && coinForm.get('rewardsUpdate').touched && coinForm.get('rewardsUpdate').invalid">
+            Please enter this field</p>
 
-          <h5 class="text-success mt-3">Balance Coins : {{ walletObject.coins }}</h5>
+          <mat-form-field class="field-full-width">
+            <mat-label>Balance coins</mat-label>
+            <input matInput placeholder="Ex. 20" value="" formControlName="coins" readonly=true />
+          </mat-form-field>
 
           <div class="row d-flex justify-content-around mt-4 ml-5 mr-5">
             <div class="col-lg-12 col-md-12 col-sm-12 d-flex justify-content-around">
@@ -134,7 +154,31 @@
 
 
   </div>
-  <ng-template #show_message>
-    <h6 class="text-center dialog-title">Interview Rounds Hasn't Been Scheduled.</h6>
-  </ng-template>
+  <div *ngIf="isShown">
+    <table id="paginationSimpleNumbers" class="table text-center" width="100%">
+      <thead class="orange">
+        <tr>
+          <th class="th-sm">KnokTalk ID
+          </th>
+          <th class="th-sm">First Name
+          </th>
+          <th class="th-sm">Last Name
+          </th>
+          <th class="th-sm">No of Gifts
+          </th>
+          <th class="th-sm">No of Coins
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{walletObject.user.knoktalkId}}</td>
+          <td>{{walletObject.user.firstName}}</td>
+          <td>{{walletObject.user.lastName}}</td>
+          <td>{{walletObject.gifts}}</td>
+          <td>{{walletObject.coins}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

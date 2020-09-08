@@ -21,6 +21,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpInterceptorService } from './modules/service/authentication/http_Interceptor/http-interceptor.service';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { LoginModule } from './modules/login/login.module';
+import { GiftAndCoin } from './modules/admin/user/listusers/listusers.component';
 
 
 @NgModule({
