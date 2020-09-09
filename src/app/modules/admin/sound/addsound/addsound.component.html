@@ -1,5 +1,6 @@
+<form [formGroup]="addSound" class="form-group">
 <div class="container" appDnd (fileDropped)="onFileDropped($event)">
-    <input type="file" #fileDropRef id="fileDropRef" multiple (change)="fileBrowseHandler($event.target.files)" />
+    <input type="file" formControlName="fileUpload" #fileDropRef id="fileDropRef" multiple (change)="fileBrowseHandler($event.target.files)" accept="audio/aac"> 
     <img src="assets/img/dnd/ic-upload-file.svg" alt="">
     <h3>Drag and drop file here</h3>
     <h3>or</h3>
@@ -15,7 +16,7 @@
         <p class="size">
           {{ formatBytes(file?.size) }}
         </p>
-        <!-- <app-progress [progress]="file?.progress"></app-progress> -->
+        <app-progress [progress]="file?.progress"></app-progress>
       </div>
       <img src="assets/img/dnd/ic-delete-file.svg" class="delete" width="20px" alt="file" (click)="deleteFile(i)">
     </div>
@@ -24,3 +25,4 @@
             <a href="https://convertio.co/mp3-aac/" target="_blank">Convert MP3 to AAC</a>
         </h6>    
   </div>
+</form>

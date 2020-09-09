@@ -1,0 +1,6 @@
+<p class="size">{{progress}} %</p>
+<div class="progress-cont" *ngIf="progress">
+    <div class="progress" [ngStyle]="{'width': progress + '%'}">
+    </div>
+  </div>
+

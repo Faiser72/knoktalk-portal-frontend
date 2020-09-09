@@ -29,6 +29,7 @@ export class ChangepasswordComponent implements OnInit {
     });
   }
 
+  // this method is used to change password by checking old password
   changePassword() {
     this.color = "red";
     if (this.firstFormGroup.valid && this.secondFormGroup.valid) {
@@ -56,6 +57,5 @@ export class ChangepasswordComponent implements OnInit {
       }
     }
   }
-
 }
 

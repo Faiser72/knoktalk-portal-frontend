@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { SoundsService } from 'src/app/modules/service/sounds/sounds.service';
 
 @Component({
   selector: 'app-addsound',
@@ -8,15 +10,21 @@ import { Router } from '@angular/router';
 })
 export class AddsoundComponent implements OnInit {
 
-  constructor() { }
+  addSound: FormGroup;
+  files: any[] = [];
+  constructor(private fb: FormBuilder,
+              private soundService:SoundsService) { }
 
   ngOnInit() {
+    this.addSound = this.fb.group({
+      fileUpload: [null, [Validators.required]]
+    })
   }
   @ViewChild("fileDropRef", { static: false }) fileDropEl: ElementRef;
-  files: any[] = [];
+  
 
   /**
-   * on file drop handler
+   * on file drop handler 
    */
   onFileDropped($event) {
     this.prepareFilesList($event);
@@ -26,7 +34,15 @@ export class AddsoundComponent implements OnInit {
    * handle file from browsing
    */
   fileBrowseHandler(files) {
+    console.log(files.length);
+    for(let i=0; i< files.length; i++){
+      console.log(files[i]);
+      this.uploadSound(files[i]);
+    }   
     this.prepareFilesList(files);
+    
+    console.log(this.prepareFilesList);
+    
   }
 
   /**
@@ -42,6 +58,20 @@ export class AddsoundComponent implements OnInit {
   }
 
   /**
+   * Convert Files list to normal array list
+   * @param files (Files List)
+   */
+  prepareFilesList(files: Array<any>) {
+    for (const item of files) {
+      item.progress = 0;
+      this.files.push(item);
+    }
+    this.fileDropEl.nativeElement.value = "";
+    this.uploadFilesSimulator(0);
+  }
+
+
+  /**
    * Simulate the upload process
    */
   uploadFilesSimulator(index: number) {
@@ -53,25 +83,13 @@ export class AddsoundComponent implements OnInit {
           if (this.files[index].progress === 100) {
             clearInterval(progressInterval);
             this.uploadFilesSimulator(index + 1);
+            alert(this.files[index].name+" "+"Uploaded Successfully.")
           } else {
             this.files[index].progress += 5;
           }
         }, 200);
       }
     }, 1000);
-  }
-
-  /**
-   * Convert Files list to normal array list
-   * @param files (Files List)
-   */
-  prepareFilesList(files: Array<any>) {
-    for (const item of files) {
-      item.progress = 0;
-      this.files.push(item);
-    }
-    this.fileDropEl.nativeElement.value = "";
-    this.uploadFilesSimulator(0);
   }
 
   /**
@@ -88,6 +106,17 @@ export class AddsoundComponent implements OnInit {
     const sizes = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
     const i = Math.floor(Math.log(bytes) / Math.log(k));
     return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + " " + sizes[i];
+  }
+
+  // This Methhod is Used to Upload the Sound File into DB
+  uploadSound(files:any) {
+    const profileFormData = new FormData();
+    profileFormData.append('soundFile',files);   
+    this.soundService.uploadSound(profileFormData).subscribe((resp: any) => {
+      console.log(this.addSound.value); 
+      if(resp.success){
+      }
+    });
   }
 
 }

@@ -60,6 +60,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  // used to validate user name
   validateUsername() {
     if (this.username == "" || this.username == null) {
       this.usernameError = "Username Required *";
@@ -69,6 +70,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  // used to validate password
   validatePassword() {
     if (this.password == "" || this.password == null) {
       this.passwordError = "Password Required *";

@@ -10,9 +10,9 @@ declare var $: any;
 })
 export class ProfileverificationComponent implements OnInit {
 
-  verificationList:any;
+  verificationList: any;
 
-  constructor(private verificationRequestService:VerificationrequestService,
+  constructor(private verificationRequestService: VerificationrequestService,
     private _snackBar: MatSnackBar) { }
 
   ngOnInit() {
@@ -24,7 +24,7 @@ export class ProfileverificationComponent implements OnInit {
     //     "pagingType": "simple_numbers"
     //   });
     // });
-    
+
     // this.verificationRequestService.getProfileFile(this.doctorId).subscribe((response: any) => {
     //   if (response.success) {
     //     let base64Data = response.byteArray;
@@ -38,14 +38,12 @@ export class ProfileverificationComponent implements OnInit {
     // });
 
   }
+
+  // this method isused to get all verification Request List
   getAllVerificationDetails() {
     this.verificationRequestService.getAllVerificationDetails().subscribe((data: any) => {
       if (data.success) {
         this.verificationList = data['listObject'];
-        console.log(this.verificationList);
-      //   this.verificationList.forEach(function (value) { 
-      //     console.log(value);       
-      // }); 
         $(document).ready(function () {
           $('#paginationSimpleNumbers').DataTable();
         });
@@ -53,9 +51,8 @@ export class ProfileverificationComponent implements OnInit {
     })
   }
 
+  // this method is used to approve user
   approveUser(verification) {
-    console.log(verification.user.userId);
-    
     if (confirm(`Approve ${verification.user.knoktalkId} user`)) {
       this.verificationRequestService.approveUser(verification.user.userId).subscribe((response: any) => {
         if (response.success) {
@@ -66,9 +63,8 @@ export class ProfileverificationComponent implements OnInit {
     }
   }
 
+  // this method is used to decline user
   declineUser(verification) {
-    console.log(verification.user.userId);
-    
     if (confirm(`Decline ${verification.user.knoktalkId} user`)) {
       this.verificationRequestService.declineUser(verification.user.userId).subscribe((response: any) => {
         if (response.success) {
@@ -79,6 +75,7 @@ export class ProfileverificationComponent implements OnInit {
     }
   }
 
+  // this method is used to change color while approved and decline
   isApproved(verificationFlag) {
     if (verificationFlag == 1) {
       return true

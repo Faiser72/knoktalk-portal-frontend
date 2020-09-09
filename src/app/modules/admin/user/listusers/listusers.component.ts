@@ -10,6 +10,8 @@ import { UserserviceService } from 'src/app/modules/service/users/userservice.se
 import { WalletService } from 'src/app/modules/service/wallet/wallet.service';
 import { AppComponent } from 'src/app/app.component';
 import { isNullOrUndefined } from 'util';
+import { DeviceService } from 'src/app/modules/service/device/device.service';
+import { Router } from '@angular/router';
 declare var $: any;
 interface Transaction {
   value: string;
@@ -27,6 +29,7 @@ export class ListusersComponent implements OnInit {
 
   constructor(public dialog: MatDialog,
     private _snackBar: MatSnackBar,
+    private router:Router,
     public userService: UserserviceService) { }
 
   ngOnInit() {
@@ -44,6 +47,13 @@ export class ListusersComponent implements OnInit {
         });
       }
     })
+  }
+
+   // This Method is Used to reload the User List
+   reloadUserList(){
+    this.router.routeReuseStrategy.shouldReuseRoute=() =>false;
+    this.router.onSameUrlNavigation='reload';
+    this.router.navigate(['/home/listusers'])
   }
 
   // this method is used to block user
@@ -77,7 +87,8 @@ export class ListusersComponent implements OnInit {
       this.userService.deleteUser(user.userId).subscribe((response: any) => {
         if (response.success) {
           this.usersList.splice(index, 1);
-          this.getAllUserDetails();
+          // this.getAllUserDetails();
+          this.reloadUserList();
           // this.customFilter();
         }
         this._snackBar.open(user.knoktalkId, response.message, { duration: 2500, });
@@ -85,12 +96,24 @@ export class ListusersComponent implements OnInit {
     }
   }
 
-  //for popup View Rounds
+  //for popup gift and coin
   openDialog(userDetails: any): void {
     // console.log('The dialog was open.');
     const dialogRef = this.dialog.open(GiftAndCoin, {
       width: "700px",
       height: "600px",
+      data: { pageValue: userDetails }
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      // console.log('The dialog was closed.');
+    });
+  }
+
+  openDevice(userDetails: any): void {
+    // console.log('The dialog was open.');
+    const dialogRef = this.dialog.open(Device, {
+      width: "700px",
+      // height: "600px",
       data: { pageValue: userDetails }
     });
     dialogRef.afterClosed().subscribe((result) => {
@@ -151,7 +174,6 @@ export class GiftAndCoin {
     this.walletService.getWalletDetailsByUserId(this.userObject.userId).subscribe((response: any) => {
       if (response.success) {
         this.walletObject = response.object;
-        console.log(this.walletObject);
       }
     })
   }
@@ -277,6 +299,39 @@ export class GiftAndCoin {
   }
 
   // coin code ends here
+
+  close(): void {
+    this.dialogRef.close();
+  }
+}
+
+// Device Component
+@Component({
+  selector: "device",
+  templateUrl: "device.html",
+  styleUrls: ['./listusers.component.scss']
+})
+export class Device {
+  userObject: any;
+  deviceObject: any;
+
+  constructor(public dialog: MatDialog,
+    private deviceService: DeviceService,
+    public dialogRef: MatDialogRef<GiftAndCoin>,
+    @Inject(MAT_DIALOG_DATA) public data: any) {
+    this.userObject = data.pageValue;
+  }
+
+
+
+  ngOnInit() {
+    // this methos is used to get the Device data by using using Id
+    this.deviceService.getDeviceDetailsByUserId(this.userObject.userId).subscribe((response: any) => {
+      if (response.success) {
+        this.deviceObject = response['listObject'];
+      }
+    })
+  }
 
   close(): void {
     this.dialogRef.close();

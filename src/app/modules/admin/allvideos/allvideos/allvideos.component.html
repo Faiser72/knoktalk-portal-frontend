@@ -31,16 +31,16 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td>1</td>
-      <td>System Architect</td>
-      <td>Edinburgh</td>
-      <td>61</td>
-      <td>320,800</td>
-      <td>2011/04/25</td>
+    <tr   *ngFor="let list of videoList ; let i = index;">
+      <td>{{i+1}}</td>
+      <td></td>
+      <td>{{list.userBean.firstName}}</td>
+      <td>{{list.soundBean.soundName}}</td>
+      <td>{{list.discoverSectionBean.sectionName}}</td>
+      <td>{{list.createdDate}}</td>
       <td>
-        <mat-icon color="accent" class="add-btn" title="Add To Discovery" (click)="openDialog()">add</mat-icon>
-        <mat-icon color="warn" class="delete-btn" title="Delete">delete_forever</mat-icon>
+        <mat-icon color="accent" class="add-btn" title="Add To Discovery" (click)="openDialog(list)">add</mat-icon>
+        <mat-icon color="warn" class="delete-btn" title="Delete" (click)="routeToDeleteVideo(list)">delete_forever</mat-icon>
       </td>
     </tr>
   </tbody>

@@ -30,3 +30,12 @@ export class UserserviceService {
     return this.http.put(`${this.baseUrl}/admin/users/deleteUser`, null, { params: { "userId": userId } });
   }
 }
+
+
+// File Name :-userservice.service.ts	   	Created Date :-03-09-2020     Created By :- Faiser I (Emp. Id : VTPL/BLR/006)
+	
+// Description :- this is the service file to communicate wit api's 					
+	
+// ============================================================================================================================
+//   Sl.No			    Description			                                Modified By		              	      Modified Date	
+// ============================================================================================================================

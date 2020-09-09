@@ -9,17 +9,19 @@ import { DataTablesModule } from 'angular-datatables';
 import { HttpClientModule } from '@angular/common/http';
 import {MatFormFieldModule, MatLabel} from '@angular/material/form-field';
 import { AddsoundComponent } from './addsound/addsound.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddsoundgalleryComponent, PublishSound } from './addsoundgallery/addsoundgallery.component';
+import { ProgressComponent } from './progress/progress.component';
 
 @NgModule({
-  declarations: [SoundhomeComponent, SoundlistComponent, SectionlistComponent, AddSection,AddsoundComponent,PublishSound,EditSection, AddsoundgalleryComponent],
+  declarations: [SoundhomeComponent, SoundlistComponent, SectionlistComponent, AddSection,AddsoundComponent,PublishSound,EditSection, AddsoundgalleryComponent, ProgressComponent],
   imports: [
     CommonModule,
     MatDividerModule,
     MatIconModule,
     MatFormFieldModule,
     FormsModule,
+    ReactiveFormsModule,
     MatInputModule,
     RouterModule,
     DataTablesModule,

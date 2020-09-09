@@ -10,25 +10,26 @@
 -->
 
 <mat-icon matSuffix style="float: right; cursor: pointer;" (click)='close()'>clear</mat-icon>
-<h4 mat-dialog-title class="dialog-title">Add Discovery Section</h4>
-<form [formGroup]="addDiscoverSectionForm" class="form-group" (submit)="saveDiscoversectionDetails()" >
+<h4 mat-dialog-title class="dialog-title">Edit Discovery Section</h4>
+<form [formGroup]="editDiscoverSectionForm" class="form-group" (submit)="updateDiscoverSectionDetails()" >
   <div>
+    <!-- <p class="dialog-text">Enter your email to reset your password.</p> -->
     <mat-form-field class="login-full-width">
       <mat-label>Discovery Section Name <mat-hint class="text-danger">*</mat-hint></mat-label>
       <input matInput type="text" formControlName="sectionName" [errorStateMatcher]="matcher">
-      
-      <mat-error *ngIf="addDiscoverSectionForm.get('sectionName').hasError('required')">
+      <mat-error *ngIf="editDiscoverSectionForm.get('sectionName').hasError('required')">
         Section name is required
       </mat-error> 
-       <mat-error *ngIf="addDiscoverSectionForm.get('sectionName').hasError('pattern')">
+       <mat-error *ngIf="editDiscoverSectionForm.get('sectionName').hasError('pattern')">
         Section name should be alphanumeric
       </mat-error>   
-      <mat-error *ngIf="addDiscoverSectionForm.get('sectionName').hasError('DuplicateUserName')">
+      <mat-error *ngIf="editDiscoverSectionForm.get('sectionName').hasError('DuplicateUserName')">
         Section name already registered, try a different one
-      </mat-error>   
+      </mat-error>  
     </mat-form-field>
+    <!-- <p style="color : red" *ngIf='emailError'>{{emailError}}</p> -->
   </div>
   <div mat-dialog-actions>
-    <button class="btn btn-sm btn-danger btn-block text-uppercase" type="submit" [disabled]='addDiscoverSectionForm.invalid'>Submit</button>
+    <button class="btn btn-sm btn-danger btn-block text-uppercase" type="submit" [disabled]='editDiscoverSectionForm.invalid'>Update</button>
   </div>
 </form>

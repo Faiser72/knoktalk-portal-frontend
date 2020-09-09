@@ -24,3 +24,11 @@ export class VerificationrequestService {
     return this.http.put(`${this.baseUrl}/admin/users/declineUser`, null, { params: { "userId": userId } });
   }
 }
+
+// File Name :-verificationrequest.service.ts	   	Created Date :-04-09-2020     Created By :- Faiser I (Emp. Id : VTPL/BLR/006)
+	
+// Description :- this is the service file to communicate wit api's 					
+	
+// ============================================================================================================================
+//   Sl.No			    Description			                                Modified By		              	      Modified Date	
+// ============================================================================================================================
