@@ -12,7 +12,7 @@
 
 <mat-icon matSuffix style="float: right; cursor: pointer;" (click)='close()'>clear</mat-icon>
 <h4 mat-dialog-title class="dialog-title">Add Discovery Section</h4>
-<form [formGroup]="addDiscoverSectionForm" class="form-group" (submit)="addDiscoverSectionToVideoDetails()" >
+<form [formGroup]="addDiscoverSectionForm" class="form-group" (submit)="addDiscoverSectionToVideoDetails()">
   <div>
     <mat-form-field appearance="fill" class="login-full-width">
       <mat-label>Add Into Discovery</mat-label>
@@ -23,6 +23,7 @@
     </mat-form-field>
   </div>
   <div mat-dialog-actions>
-    <button class="btn btn-sm btn-danger btn-block text-uppercase" type="submit" [disabled]='addDiscoverSectionForm.invalid'>Submit</button>
+    <button class="btn btn-sm btn-danger btn-block text-uppercase" type="submit"
+      [disabled]='addDiscoverSectionForm.invalid'>Submit</button>
   </div>
 </form>

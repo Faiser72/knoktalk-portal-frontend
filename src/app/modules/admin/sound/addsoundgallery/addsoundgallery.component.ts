@@ -15,12 +15,12 @@ import { DialogData } from 'src/app/modules/login/login/login.component';
 export class AddsoundgalleryComponent implements OnInit {
 
   soundList;
-  
-  constructor(public dialog: MatDialog,  public soundService:SoundsService) { }
+
+  constructor(public dialog: MatDialog, public soundService: SoundsService) { }
 
   ngOnInit() {
-        // Method Calling
-        this.getsoundList();     
+    // Method Calling
+    this.getsoundList();
   }
 
   // This Method is Used to Get the Section List from DB and to Display in Sound Gallery Table
@@ -44,7 +44,7 @@ export class AddsoundgalleryComponent implements OnInit {
     this.dialog.open(PublishSound, {
       width: "600px",
       data: {
-        pageValue : data
+        pageValue: data
       }
     });
   }
@@ -71,7 +71,7 @@ export class AddsoundgalleryComponent implements OnInit {
       });
     }
   }
-  
+
 }
 
 /**
@@ -86,31 +86,29 @@ export class AddsoundgalleryComponent implements OnInit {
 })
 export class PublishSound {
 
-  publishSound:FormGroup;
+  publishSound: FormGroup;
   sectionList;
   publish;
-  
+
   constructor(
     public dialogRef: MatDialogRef<PublishSound>,
-     @Inject(MAT_DIALOG_DATA) public data: any,
+    @Inject(MAT_DIALOG_DATA) public data: any,
     private router: Router,
-    public sectionService:SoundsService,
+    public sectionService: SoundsService,
     private fb: FormBuilder,
     private location: Location,
     private soundGalleryService: SoundsService
-   
-  ) {this.publish = data.pageValue 
-    console.log(this.publish);}
- 
-  
+  ) {
+    this.publish = data.pageValue
+  }
 
   ngOnInit() {
     this.publishSound = this.fb.group({
-      soundId:[0],
+      soundId: [0],
       sectionBean: [null, [Validators.required]],
-      soundName: [null,[Validators.required]],
-      description: [null,[Validators.required]],
-      thumbline: [null,[Validators.required]]
+      soundName: [null, [Validators.required]],
+      description: [null, [Validators.required]],
+      thumbline: [null, [Validators.required]]
     })
     this.getsectionList();
   }
@@ -118,30 +116,26 @@ export class PublishSound {
   // This Method is Used to Get the File From System
   base64File: string = null;
   filename: string = null;
-  file:any;
+  file: any;
   onFileSelect(e: any): void {
     this.file = null;
     try {
       this.file = e.target.files[0];
       const fReader = new FileReader()
-      fReader.readAsDataURL( this.file)
+      fReader.readAsDataURL(this.file)
       fReader.onloadend = (_event: any) => {
-        this.filename =  this.file.name;
-        console.log(this.filename);
-        this.base64File = _event.target.result;      
+        this.filename = this.file.name;
+        this.base64File = _event.target.result;
       }
     } catch (error) {
       this.filename = null;
       this.base64File = null;
-      console.log('no file was selected...');
     }
   }
 
   // This Method is Used to Get the Section List from DB and to Display in Option 
   getsectionList() {
     this.sectionService.getSectionList().subscribe((data: any) => {
-      console.log(data);
-      
       if (data.success) {
         this.sectionList = data['listObject'];
         $(document).ready(function () {
@@ -165,35 +159,33 @@ export class PublishSound {
 
   // This Methhod is Used to Save the Publish Sound Details into DB
   savePublishSound() {
-      this.soundGalleryService.publishSound(this.publishSound.value,this.publish.soundId).subscribe((data: any) => {
-        if (data.success) {
-          if (!isNullOrUndefined(this.filename)) {
-            const profileFormData = new FormData();
-            profileFormData.append('thumFile', this.file);
-            profileFormData.append('soundId', this.publish.soundId);
-            console.log(this.publish.soundId);
+    this.soundGalleryService.publishSound(this.publishSound.value, this.publish.soundId).subscribe((data: any) => {
+      if (data.success) {
+        if (!isNullOrUndefined(this.filename)) {
+          const profileFormData = new FormData();
+          profileFormData.append('thumFile', this.file);
+          profileFormData.append('soundId', this.publish.soundId);
+          this.soundGalleryService.uploadThum(profileFormData).subscribe((resp: any) => {
+            if (resp.success) {
+              alert("Data Saved Successfully and Files Uploaded Successfully");
+              this.publishSound.reset();
+            } else {
+              alert("Data Saved Successfully. But, failure to upload Profile Photo");
+            }
 
-            this.soundGalleryService.uploadThum(profileFormData).subscribe((resp: any) => {
-              if (resp.success) {
-                alert("Data Saved Successfully and Files Uploaded Successfully");
-                this.publishSound.reset();
-              } else {
-                alert("Data Saved Successfully. But, failure to upload Profile Photo");
-              }
-              
-            });
-          } else {
-            alert("Data Saved Successfully and File Uploaded Successfully");
-            this.publishSound.reset();
-
-          }
-
+          });
         } else {
-          setTimeout(() => {
-            alert(data.message);
-          }, 1000);
+          alert("Data Saved Successfully and File Uploaded Successfully");
+          this.publishSound.reset();
+
         }
-      });
+
+      } else {
+        setTimeout(() => {
+          alert(data.message);
+        }, 1000);
+      }
+    });
 
   }
 
@@ -201,5 +193,5 @@ export class PublishSound {
   gotoBack = () => {
     this.location.back();
   };
- 
+
 }

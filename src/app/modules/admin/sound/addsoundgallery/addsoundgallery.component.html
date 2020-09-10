@@ -1,3 +1,14 @@
+<!-- 
+File Name :-addsoundgallery.component.html	   	Created Date :-04-09-2020     Created By :- Vikash Kumar (Emp. Id : VTPL/BLR/005)
+	
+Description :- This Component is Used to Display the All Sound Gallery List	
+	
+============================================================================================================================
+  Sl.No			    Description			                                Modified By		              	      Modified Date	
+============================================================================================================================
+	
+	
+ -->
 <div class="container">
   <div class="container-fluid mx-auto">
     <div class="row d-flex">
@@ -10,13 +21,15 @@
             <div class="card-body">
               <p class="card-head">{{list.sound}}</p>
               <h6>
-                <mat-icon color="accent" class="publish-icon" matTooltip="Publish" [matTooltipPosition]="'above'" matTooltipHideDelay="500"(click)="openDialog(list)">publish</mat-icon>
-                <mat-icon color="warn" class="delete-icon" matTooltip="Delete" [matTooltipPosition]="'above'" matTooltipHideDelay="500" (click)="routeToDeleteSound(list)">delete_forever</mat-icon>
+                <mat-icon color="accent" class="publish-icon" matTooltip="Publish" [matTooltipPosition]="'above'"
+                  matTooltipHideDelay="500" (click)="openDialog(list)">publish</mat-icon>
+                <mat-icon color="warn" class="delete-icon" matTooltip="Delete" [matTooltipPosition]="'above'"
+                  matTooltipHideDelay="500" (click)="routeToDeleteSound(list)">delete_forever</mat-icon>
               </h6>
             </div>
           </div>
         </div>
-      </div> 
+      </div>
     </div>
   </div>
 </div>

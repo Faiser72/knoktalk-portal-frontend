@@ -112,6 +112,7 @@
   .side-card .mi{
    margin-top: 10px;
    color: navy;
+   cursor: pointer;
   }
 
   .side-card mat-icon{
@@ -221,3 +222,6 @@
     font-size: 13px;
   }
   
+  .btn-submit{
+    background-color: var(--main-font-3-color) ;
+  }

@@ -13,7 +13,7 @@ export class AddsoundComponent implements OnInit {
   addSound: FormGroup;
   files: any[] = [];
   constructor(private fb: FormBuilder,
-              private soundService:SoundsService) { }
+    private soundService: SoundsService) { }
 
   ngOnInit() {
     this.addSound = this.fb.group({
@@ -21,7 +21,7 @@ export class AddsoundComponent implements OnInit {
     })
   }
   @ViewChild("fileDropRef", { static: false }) fileDropEl: ElementRef;
-  
+
 
   /**
    * on file drop handler 
@@ -34,15 +34,11 @@ export class AddsoundComponent implements OnInit {
    * handle file from browsing
    */
   fileBrowseHandler(files) {
-    console.log(files.length);
-    for(let i=0; i< files.length; i++){
-      console.log(files[i]);
+    for (let i = 0; i < files.length; i++) {
       this.uploadSound(files[i]);
-    }   
+    }
     this.prepareFilesList(files);
-    
-    console.log(this.prepareFilesList);
-    
+
   }
 
   /**
@@ -51,7 +47,6 @@ export class AddsoundComponent implements OnInit {
    */
   deleteFile(index: number) {
     if (this.files[index].progress < 100) {
-      console.log("Upload in progress.");
       return;
     }
     this.files.splice(index, 1);
@@ -83,7 +78,7 @@ export class AddsoundComponent implements OnInit {
           if (this.files[index].progress === 100) {
             clearInterval(progressInterval);
             this.uploadFilesSimulator(index + 1);
-            alert(this.files[index].name+" "+"Uploaded Successfully.")
+            alert(this.files[index].name + " " + "Uploaded Successfully.")
           } else {
             this.files[index].progress += 5;
           }
@@ -109,12 +104,11 @@ export class AddsoundComponent implements OnInit {
   }
 
   // This Methhod is Used to Upload the Sound File into DB
-  uploadSound(files:any) {
+  uploadSound(files: any) {
     const profileFormData = new FormData();
-    profileFormData.append('soundFile',files);   
+    profileFormData.append('soundFile', files);
     this.soundService.uploadSound(profileFormData).subscribe((resp: any) => {
-      console.log(this.addSound.value); 
-      if(resp.success){
+      if (resp.success) {
       }
     });
   }

@@ -11,7 +11,7 @@
 
 
 <h4 class="green">ALL Videos</h4>
-<table id="paginationSimpleNumbers" class="table" width="100%">
+<table id="paginationSimpleNumbers" class="display text-center" width="100%">
   <thead class="orange">
     <tr>
       <th class="th-sm">ID
@@ -31,7 +31,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr   *ngFor="let list of videoList ; let i = index;">
+    <tr *ngFor="let list of videoList ; let i = index;">
       <td>{{i+1}}</td>
       <td></td>
       <td>{{list.userBean.firstName}}</td>
@@ -40,7 +40,8 @@
       <td>{{list.createdDate}}</td>
       <td>
         <mat-icon color="accent" class="add-btn" title="Add To Discovery" (click)="openDialog(list)">add</mat-icon>
-        <mat-icon color="warn" class="delete-btn" title="Delete" (click)="routeToDeleteVideo(list)">delete_forever</mat-icon>
+        <mat-icon color="warn" class="delete-btn" title="Delete" (click)="routeToDeleteVideo(list)">delete_forever
+        </mat-icon>
       </td>
     </tr>
   </tbody>

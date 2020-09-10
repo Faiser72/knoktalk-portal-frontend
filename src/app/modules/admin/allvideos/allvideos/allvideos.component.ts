@@ -15,7 +15,7 @@ declare var $: any;
 export class AllvideosComponent implements OnInit {
 
   videoList: any;
-  constructor(public dialog: MatDialog, private videoService: VideosService ,private router:Router) { }
+  constructor(public dialog: MatDialog, private videoService: VideosService, private router: Router) { }
 
   ngOnInit() {
     $(document).ready(function () {
@@ -75,9 +75,9 @@ export class AllvideosComponent implements OnInit {
   //     }
   //   })
   // }
-  reloadComponent(){
-    this.router.routeReuseStrategy.shouldReuseRoute=() =>false;
-    this.router.onSameUrlNavigation='reload';
+  reloadComponent() {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
     this.router.navigate(['/home/allvideos'])
   }
 
@@ -96,7 +96,7 @@ export class AllvideosComponent implements OnInit {
 
     }
   }
-  
+
 }
 @Component({
   selector: 'add-todiscovery',
@@ -120,8 +120,8 @@ export class AddToDiscovery {
   ) {
 
     this.addDiscovery = data.pageValue
-   
-  
+
+
   }
 
   ngOnInit() {
@@ -148,10 +148,10 @@ export class AddToDiscovery {
 
   addDiscoverSectionToVideoDetails() {
     if (this.addDiscoverSectionForm.valid) {
-    
-      
+
+
       // this.appComponent.startSpinner("Updating data..\xa0\xa0Please wait ...");
-      this.videoService.updateVideoWithDiscoverSectionDetails(this.addDiscovery.videoId,this.addDiscoverSectionForm.value  ).subscribe((resp: any) => {
+      this.videoService.updateVideoWithDiscoverSectionDetails(this.addDiscovery.videoId, this.addDiscoverSectionForm.value).subscribe((resp: any) => {
         if (resp.success) {
           setTimeout(() => {
             alert(resp.message);

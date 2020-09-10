@@ -29,7 +29,7 @@ export class ListusersComponent implements OnInit {
 
   constructor(public dialog: MatDialog,
     private _snackBar: MatSnackBar,
-    private router:Router,
+    private router: Router,
     public userService: UserserviceService) { }
 
   ngOnInit() {
@@ -49,10 +49,18 @@ export class ListusersComponent implements OnInit {
     })
   }
 
-   // This Method is Used to reload the User List
-   reloadUserList(){
-    this.router.routeReuseStrategy.shouldReuseRoute=() =>false;
-    this.router.onSameUrlNavigation='reload';
+  // this method is used to change color while BLocked and UnBlocked
+  isBlocked(blockFlag) {
+    if (blockFlag == 0) {
+      return true
+    }
+    return false
+  }
+
+  // This Method is Used to reload the User List
+  reloadUserList() {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
     this.router.navigate(['/home/listusers'])
   }
 

@@ -11,7 +11,7 @@ Description :- this component is used to block, unblock and add or substract of 
  -->
 
 <h3 class="green">ALL Users</h3>
-<table id="paginationSimpleNumbers" class="table text-center" width="100%">
+<table id="paginationSimpleNumbers" class="text-center display" width="100%">
     <thead class="orange">
         <tr>
             <th class="th-sm">Sl No
@@ -31,7 +31,7 @@ Description :- this component is used to block, unblock and add or substract of 
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let user of usersList ; let i = index;">
+        <tr *ngFor="let user of usersList ; let i = index;" [style.color]="isBlocked(user.block) ? 'black' : 'red'">
             <td>{{i+1}}</td>
             <td>{{user.knoktalkId}}</td>
             <td>{{user.firstName}}</td>
@@ -49,8 +49,8 @@ Description :- this component is used to block, unblock and add or substract of 
                     class="delete-btn" (click)='openDialog(user)'>card_giftcard
                 </mat-icon>
                 <mat-icon color='primary' matTooltip="Device" [matTooltipPosition]="'below'" matTooltipHideDelay="500"
-                class="delete-btn" (click)='openDevice(user)'>phone_android
-            </mat-icon>
+                    class="delete-btn" (click)='openDevice(user)'>phone_android
+                </mat-icon>
             </td>
         </tr>
 

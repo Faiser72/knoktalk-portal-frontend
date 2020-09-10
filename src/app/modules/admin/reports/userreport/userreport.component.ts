@@ -8,7 +8,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 })
 export class UserreportComponent implements OnInit {
 
-  userReportForm:FormGroup
+  userReportForm: FormGroup
   constructor(private fb: FormBuilder) { }
 
   ngOnInit() {

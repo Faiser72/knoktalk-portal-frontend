@@ -8,7 +8,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 })
 export class RewardsreportComponent implements OnInit {
 
-  rewardsReportForm:FormGroup;
+  rewardsReportForm: FormGroup;
   constructor(private fb: FormBuilder) { }
 
   ngOnInit() {

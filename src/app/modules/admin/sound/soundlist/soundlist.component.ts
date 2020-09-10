@@ -10,13 +10,13 @@ import { SoundsService } from 'src/app/modules/service/sounds/sounds.service';
 export class SoundlistComponent implements OnInit {
 
   soundList;
-  constructor(private router:Router,
-              public soundService:SoundsService) { } 
+  constructor(private router: Router,
+    public soundService: SoundsService) { }
 
   ngOnInit() {
     $(document).ready(function () {
       //Pagination numbers
-      $('#sectionDetails').DataTable ({
+      $('#sectionDetails').DataTable({
         "pagingType": "simple_numbers"
       });
     });
@@ -41,7 +41,7 @@ export class SoundlistComponent implements OnInit {
   }
 
   // This Method is Used To Redirect to Upload Sound Page
-  routeToUploadSound(){
+  routeToUploadSound() {
     this.router.navigate(['/home/uploadSound'])
   }
 

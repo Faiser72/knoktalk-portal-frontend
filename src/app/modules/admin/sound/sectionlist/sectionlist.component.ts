@@ -17,10 +17,10 @@ export class SectionlistComponent implements OnInit {
   sectionList;
   sectionName;
 
-  constructor(public dialog: MatDialog, 
-              private sectionService: SoundsService,
-              private router: Router
-             ) { }
+  constructor(public dialog: MatDialog,
+    private sectionService: SoundsService,
+    private router: Router
+  ) { }
   ngOnInit() {
 
     // Method Calling
@@ -56,7 +56,7 @@ export class SectionlistComponent implements OnInit {
 
   // This Method is Used to Open the Edit Section Pop Up Form
   openEditDialog(data) {
-    const dialogRef =  this.dialog.open(EditSection, {
+    const dialogRef = this.dialog.open(EditSection, {
       width: "600px",
       data: { pageValue: data }
     });
@@ -66,9 +66,9 @@ export class SectionlistComponent implements OnInit {
   }
 
   // This Method is Used to reload the Section List
-  reloadSectionList(){
-    this.router.routeReuseStrategy.shouldReuseRoute=() =>false;
-    this.router.onSameUrlNavigation='reload';
+  reloadSectionList() {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
     this.router.navigate(['/home/soundshome/sections'])
   }
 
@@ -78,7 +78,7 @@ export class SectionlistComponent implements OnInit {
       this.sectionService.deleteSectionDetails(sectionDetails.sectionId).subscribe((resp: any) => {
         if (resp.success) {
           alert(resp.message)
-        this.reloadSectionList()
+          this.reloadSectionList()
         }
       });
     }
@@ -91,7 +91,7 @@ export class SectionlistComponent implements OnInit {
  * 
  */
 @Component({
-  selector: 'add-section', 
+  selector: 'add-section',
   templateUrl: 'addsection.html',
   styleUrls: ['./sectionlist.component.scss']
 })
@@ -101,12 +101,12 @@ export class AddSection {
   sectionList;
 
   constructor(
-              public dialogRef: MatDialogRef<AddSection>,
-              @Inject(MAT_DIALOG_DATA) public data: DialogData,
-              private router: Router,
-              private fb: FormBuilder,
-              private sectionService: SoundsService
-             ) { }
+    public dialogRef: MatDialogRef<AddSection>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData,
+    private router: Router,
+    private fb: FormBuilder,
+    private sectionService: SoundsService
+  ) { }
 
   ngOnInit() {
     this.addSection = this.fb.group({
@@ -158,9 +158,9 @@ export class AddSection {
   }
 
   // This Method is Used to reload the Section List
-  reloadSectionList(){
-    this.router.routeReuseStrategy.shouldReuseRoute=() =>false;
-    this.router.onSameUrlNavigation='reload';
+  reloadSectionList() {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
     this.router.navigate(['/home/soundshome/sections'])
   }
 
@@ -182,14 +182,14 @@ export class EditSection {
   addSection: FormGroup;
 
   constructor(
-              public dialogRef: MatDialogRef<EditSection>,
-              @Inject(MAT_DIALOG_DATA) public data: any,
-              private router: Router, 
-              private sectionService: SoundsService,
-              private fb: FormBuilder,
-            ) {
-              this.editSection = data.pageValue; 
-            }
+    public dialogRef: MatDialogRef<EditSection>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private router: Router,
+    private sectionService: SoundsService,
+    private fb: FormBuilder,
+  ) {
+    this.editSection = data.pageValue;
+  }
   ngOnInit() {
     this.sectionService.getSectionDetails(this.editSection.sectionId).subscribe((data: any) => {
       if (data.success) {
@@ -211,9 +211,9 @@ export class EditSection {
   }
 
   // This Method is Used to reload the Section List
-  reloadSectionList(){
-    this.router.routeReuseStrategy.shouldReuseRoute=() =>false;
-    this.router.onSameUrlNavigation='reload';
+  reloadSectionList() {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
     this.router.navigate(['/home/soundshome/sections'])
   }
 

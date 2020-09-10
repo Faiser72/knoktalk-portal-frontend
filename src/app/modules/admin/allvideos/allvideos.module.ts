@@ -33,6 +33,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserModule,
     BrowserAnimationsModule,
   ],
-  entryComponents:[AddToDiscovery]
+  entryComponents: [AddToDiscovery]
 })
 export class AllvideosModule { }
